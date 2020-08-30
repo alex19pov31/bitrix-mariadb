@@ -1,5 +1,15 @@
 #!/bin/sh
 
+if [ ! -d "/var/lib/mysql" ]; then
+	mysql_install_db --user=mysql --ldata=/var/lib/mysql
+else
+    chown -R mysql:mysql /var/lib/mysql
+fi
+
+mkdir -p /run/mysqld
+chown -R mysql:mysql /run/mysqld
+rm -rf /run/mysqld/mysqld.sock
+
 if [ "$MYSQL_ROOT_PASSWORD" = "" ]; then
 	MYSQL_ROOT_PASSWORD=`pwgen 16 1`
 	echo "[i] MySQL root Password: $MYSQL_ROOT_PASSWORD"
