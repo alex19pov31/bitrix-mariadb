@@ -8,10 +8,10 @@ RUN apk add --no-cache tzdata && \
 	mysql_install_db --user=mysql --ldata=/var/lib/mysql && \
 	mkdir -p /run/mysqld/ && chown -R mysql:mysql /run/mysqld/
 
-COPY conf /etc
+COPY conf /
 
 EXPOSE 3306
 
 VOLUME ["/var/lib/mysql"]
 
-ENTRYPOINT ["/usr/bin/mysqld", "--user=mysql", "--console", "--skip-name-resolve", "--skip-networking=0"]
+ENTRYPOINT ["/scripts/run.sh"]
